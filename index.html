@@ -84,7 +84,6 @@
     grid-auto-flow: dense; 
   }
 
-  /* Padding for the bottom of the page */
   .bottom-pad { padding-bottom: 150px; }
 
   .rug-card {
@@ -100,7 +99,7 @@
   .rug-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This makes the cropping work */
+    object-fit: cover;
     transition: transform 0.5s ease;
     filter: grayscale(100%) contrast(120%);
   }
@@ -110,7 +109,7 @@
   .card-tall { grid-row: span 2; }
   .card-big  { grid-column: span 2; grid-row: span 2; } 
 
-  /* TILT LOGIC (Randomized look) */
+  /* TILT LOGIC */
   .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
   .rug-card:nth-child(even) { transform: rotate(1deg); }
   .rug-card:nth-child(3n) { transform: rotate(-1deg); }
@@ -283,30 +282,36 @@
   </header>
 
   <div class="gallery-container">
-    <div class="rug-card card-wide" onclick="openLightbox('corgi')">
-      <img src="floor_dog_8.png" alt="Corgi Rug"> 
+    
+    <div class="rug-card card-wide" onclick="openLightbox('hero_floor_1')">
+      <img src="hero_floor_1.png" alt="Wide Floor Rug"> 
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-    <div class="rug-card card-tall" onclick="openLightbox('sphynx')">
-      <img src="floor_cat_3.png" style="object-position: center;" alt="Wall Art">
+
+    <div class="rug-card card-tall" onclick="openLightbox('hero_wall_1')">
+      <img src="hero_wall_1.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
-    <div class="rug-card" onclick="openLightbox('yorkie')">
-       <img src="floor_dog_7.png" alt="Yorkie">
+
+    <div class="rug-card" onclick="openLightbox('hero_floor_2')">
+       <img src="hero_floor_2.png" alt="Standard Rug">
        <div class="card-tag">FLOOR</div>
     </div>
 
-    <div class="rug-card card-big" onclick="openLightbox('doberman')">
-      <img src="floor_dog_1.png" alt="Doberman">
+    <div class="rug-card card-big" onclick="openLightbox('hero_feature')">
+      <img src="hero_feature.png" alt="Featured Rug">
       <div class="card-tag">FEATURED</div>
     </div>
-    <div class="rug-card card-wide" onclick="openLightbox('greycat')">
-       <img src="floor_cat_5.png" alt="Grey Cat">
+    
+    <div class="rug-card card-wide" onclick="openLightbox('hero_floor_3')">
+       <img src="hero_floor_3.png" alt="Wide Floor Rug">
        <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-    <div class="rug-card" onclick="openLightbox('persian')">
-      <img src="floor_cat_7.png" alt="Persian">
+
+    <div class="rug-card" onclick="openLightbox('hero_floor_4')">
+      <img src="hero_floor_4.png" alt="Extra Rug">
     </div>
+
   </div>
 
 
@@ -319,63 +324,63 @@
 
   <div class="gallery-container bottom-pad">
     
-    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_1')">
-      <img src="wall_dog_1.png" style="object-position: center;" alt="Labrador Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_1')">
+      <img src="gal_wall_1.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-wide" onclick="openLightbox('floor_dog_3')">
-      <img src="floor_dog_3.png" alt="Border Collie">
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_1')">
+      <img src="gal_floor_1.png" alt="Floor Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_1')">
-      <img src="wall_cat_1.png" style="object-position: center;" alt="Sphynx Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_2')">
+      <img src="gal_wall_2.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_13')">
-      <img src="floor_cat_13.png" alt="Grey Fold">
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_2')">
+      <img src="gal_floor_2.png" alt="Floor Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_2')">
-      <img src="wall_dog_2.png" style="object-position: center;" alt="Pointer Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_3')">
+      <img src="gal_wall_3.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_4')">
-      <img src="wall_cat_4.png" style="object-position: center;" alt="Tabby Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_4')">
+      <img src="gal_wall_4.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-wide" onclick="openLightbox('floor_dog_9')">
-      <img src="floor_dog_9.png" alt="Chihuahua">
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_3')">
+      <img src="gal_floor_3.png" alt="Floor Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_3')">
-      <img src="wall_dog_3.png" style="object-position: center;" alt="Bull Terrier Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_5')">
+      <img src="gal_wall_5.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_2')">
-      <img src="floor_cat_2.png" alt="Persian">
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_4')">
+      <img src="gal_floor_4.png" alt="Floor Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_3')">
-      <img src="wall_cat_3.png" style="object-position: center;" alt="White Cat Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_6')">
+      <img src="gal_wall_6.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
-    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_5')">
-      <img src="floor_cat_5.png" alt="Tabby">
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_5')">
+      <img src="gal_floor_5.png" alt="Floor Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
-    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_4')">
-      <img src="wall_dog_4.png" style="object-position: center;" alt="Min Pin Art">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_7')">
+      <img src="gal_wall_7.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
@@ -451,26 +456,9 @@
   const formModal = document.getElementById('formModal');
   const lbImage = document.getElementById('lb-image');
 
-  function openLightbox(imageName) {
-    // Dynamic Image Loading (PNG)
-    // Note: This logic assumes you have the files named exactly as mapped above.
-    // In a real CMS, this would be handled by a database loop.
-    let src = '';
-    
-    // HERO SECTION MAPPING
-    if(imageName === 'corgi') src = 'floor_dog_8.png';
-    else if(imageName === 'sphynx') src = 'floor_cat_3.png';
-    else if(imageName === 'doberman') src = 'floor_dog_1.png';
-    else if(imageName === 'yorkie') src = 'floor_dog_7.png';
-    else if(imageName === 'greycat') src = 'floor_cat_5.png';
-    else if(imageName === 'persian') src = 'floor_cat_7.png';
-    
-    // EXTENDED GALLERY MAPPING (Direct Filename Pass-through)
-    else {
-      src = imageName + '.png';
-    }
-
-    lbImage.src = src;
+  function openLightbox(fileName) {
+    // Dynamic loading - simply appending .png to the argument passed
+    lbImage.src = fileName + '.png';
     productModal.classList.add('active');
   }
 
