@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuft & Soul | Custom Pet Rugs</title>
+<style>
+  :root {
+    --electric-yellow: #FFD700;
+    --ink-black: #111;
+    --paper-white: #fff;
+    --shadow-hard: 6px 6px 0px var(--ink-black);
+    --shadow-hover: 12px 12px 0px var(--ink-black);
+  }
+
+  body {
+    background-color: var(--electric-yellow);
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--ink-black);
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  /* --- HEADER --- */
+  header {
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    background: var(--ink-black);
+    color: var(--paper-white);
+    display: inline-block;
+    padding: 5px 15px;
+    transform: rotate(-2deg);
+  }
+
+  /* --- THE HEAVY GRID (Restored Logic) --- */
+  .gallery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+    
+    /* This creates the robust layout */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: 250px; /* Base unit height */
+    gap: 40px;
+    
+    /* Ensure dense packing so the big square doesn't break the flow */
+    grid-auto-flow: dense; 
+    
+    padding-bottom: 150px;
+  }
+
+  .rug-card {
+    background: var(--paper-white);
+    border: 3px solid var(--ink-black);
+    box-shadow: var(--shadow-hard);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rug-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: grayscale(100%) contrast(120%);
+  }
+
+  /* --- GRID CLASSES (The Secret Sauce) --- */
+  .card-wide { grid-column: span 2; }
+  .card-tall { grid-row: span 2; }
+  .card-big  { grid-column: span 2; grid-row: span 2; } /* The Featured Square */
+
+  /* TILT LOGIC */
+  .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
+  .rug-card:nth-child(even) { transform: rotate(1deg); }
+  .rug-card:nth-child(3n) { transform: rotate(-2deg); }
+  .rug-card:nth-child(5n) { transform: rotate(1.5deg); }
+
+  .rug-card:hover {
+    transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
+    box-shadow: var(--shadow-hover);
+    z-index: 10;
+  }
+  
+  .rug-card:hover img {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.05);
+  }
+
+  .card-tag {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: var(--ink-black);
+    color: var(--electric-yellow);
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+  }
+
+  /* --- FLOATING CTA --- */
+  .fab-container {
+    position: fixed;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: 90%; max-width: 400px;
+  }
+
+  .cta-button {
+    background: var(--ink-black);
+    color: var(--paper-white);
+    width: 100%;
+    padding: 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid var(--paper-white);
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .cta-button:hover {
+    transform: scale(1.05);
+    background: #222;
+  }
+
+  /* --- MODALS --- */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 26, 26, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    padding: 20px;
+  }
+  
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: var(--electric-yellow);
+    width: 100%;
+    max-width: 1000px;
+    border: 4px solid var(--paper-white);
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 20;
+    line-height: 0.8;
+  }
+
+  /* LIGHTBOX SPECIFIC */
+  .lightbox-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+  }
+  
+  .lightbox-visual {
+    background: white;
+    border-right: 4px solid var(--ink-black);
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 20px;
+  }
+  
+  .lightbox-details { padding: 40px; }
+
+  /* FORM SPECIFIC */
+  .form-container {
+    padding: 50px;
+    background: var(--paper-white);
+    max-width: 600px;
+    margin: 0 auto;
+    border: 4px solid var(--ink-black);
+  }
+
+  .form-group { margin-bottom: 25px; }
+  
+  label {
+    display: block; font-weight: bold; margin-bottom: 8px;
+    text-transform: uppercase; font-size: 0.9rem;
+  }
+
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%; padding: 15px;
+    border: 3px solid var(--ink-black);
+    font-family: inherit; font-size: 1rem;
+    background: #f0f0f0; box-sizing: border-box;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none; background: white;
+    box-shadow: 5px 5px 0px var(--electric-yellow);
+  }
+
+  .file-upload-wrapper {
+    border: 3px dashed var(--ink-black);
+    padding: 20px; text-align: center;
+    cursor: pointer; background: #f9f9f9;
+  }
+  
+  .submit-btn {
+    background: var(--ink-black); color: var(--electric-yellow);
+    border: none; padding: 20px; width: 100%;
+    font-size: 1.2rem; font-weight: bold;
+    cursor: pointer; text-transform: uppercase;
+    font-family: inherit; transition: all 0.2s;
+  }
+
+  .submit-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0px var(--electric-yellow);
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-grid { grid-template-columns: 1fr; }
+    .lightbox-visual { border-right: none; border-bottom: 4px solid var(--ink-black); }
+    .form-container { padding: 20px; border: none; }
+    h1 { font-size: 2.5rem; }
+    .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; } /* Stack on mobile */
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>Tuft & Soul</h1>
+    <div class="subtitle">Handmade Pet Art</div>
+  </header>
+
+  <div class="gallery-container">
+    
+    <div class="rug-card card-wide" onclick="openLightbox('corgi')">
+      <img src="floor_dog_8.jpg" alt="Corgi Rug"> 
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('sphynx')">
+      <img src="floor_cat_3.jpg" style="object-position: center;" alt="Wall Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card" onclick="openLightbox('yorkie')">
+       <img src="floor_dog_7.jpg" alt="Yorkie">
+       <div class="card-tag">FLOOR</div>
+    </div>
+
+    <div class="rug-card card-big" onclick="openLightbox('doberman')">
+      <img src="floor_dog_1.jpg" alt="Doberman">
+      <div class="card-tag">FEATURED</div>
+    </div>
+    
+    <div class="rug-card card-wide" onclick="openLightbox('greycat')">
+       <img src="floor_cat_5.jpg" alt="Grey Cat">
+       <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card" onclick="openLightbox('persian')">
+      <img src="floor_cat_7.jpg" alt="Persian">
+    </div>
+
+  </div>
+
+  <div class="fab-container">
+    <button class="cta-button" onclick="openFormModal()">
+      Get Free Proposal <span>&rarr;</span>
+    </button>
+  </div>
+
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-box lightbox-grid">
+      <div class="close-btn" onclick="closeModals()">&times;</div>
+      <div class="lightbox-visual">
+        <img id="lb-image" src="" style="width:100%; border:3px solid var(--ink-black);">
+        <div style="margin-top:15px; text-align:center; font-weight:bold; font-size:0.8rem;">
+          Tap to compare with original photo
+        </div>
+      </div>
+      <div class="lightbox-details">
+        <span style="background:black; color:white; padding:5px 10px; font-size:0.8rem;">CUSTOM RUG</span>
+        <h2 style="font-size: 2.5rem; margin: 15px 0; text-transform:uppercase;">The Masterpiece</h2>
+        <p style="line-height:1.6;">Hand-tufted with premium acrylic yarn. Features a non-slip backing and carved details for a 3D effect.</p>
+        <div style="margin-top:30px; border-top:2px solid black; padding-top:20px;">
+          <button class="cta-button" onclick="closeModals(); openFormModal();" style="font-size:1rem; padding:15px;">
+            I Want One Like This
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="formModal">
+    <div class="modal-box" style="background: var(--electric-yellow); padding: 40px 0;">
+      <div class="close-btn" onclick="closeModals()">&times;</div>
+      <div class="form-container">
+        <h2 style="text-align:center; font-size:2rem; margin-top:0;">START YOUR DESIGN</h2>
+        <p style="text-align:center; margin-bottom:30px;">Upload your pet's photo. We'll send you a digital mockup within 24 hours. <strong>It's Free.</strong></p>
+
+        <form action="https://formspree.io/f/meoyqawk" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Rug Style</label>
+            <select name="style">
+              <option value="Floor_Rug">Floor Rug (Head Shape)</option>
+              <option value="Wall_Art">Wall Art (Portrait Rectangular)</option>
+              <option value="Unsure">I'm not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Upload Pet Photo</label>
+            <div class="file-upload-wrapper">
+              <input type="file" name="attachment" accept="image/png, image/jpeg" required>
+            </div>
+            <small style="display:block; margin-top:5px; text-align:center;">Best lighting works best!</small>
+          </div>
+          <button type="submit" class="submit-btn">Send Request</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const productModal = document.getElementById('productModal');
+  const formModal = document.getElementById('formModal');
+  const lbImage = document.getElementById('lb-image');
+
+  function openLightbox(imageName) {
+    // Basic switch for demo purposes
+    // In production, these would be dynamic based on the clicked item
+    let src = '';
+    if(imageName === 'corgi') src = 'floor_dog_8.jpg';
+    else if(imageName === 'sphynx') src = 'floor_cat_3.jpg';
+    else if(imageName === 'doberman') src = 'floor_dog_1.jpg';
+    else if(imageName === 'yorkie') src = 'floor_dog_7.jpg';
+    else if(imageName === 'greycat') src = 'floor_cat_5.jpg';
+    else src = 'floor_cat_7.jpg';
+
+    lbImage.src = src;
+    productModal.classList.add('active');
+  }
+
+  function openFormModal() {
+    closeModals();
+    formModal.classList.add('active');
+  }
+
+  function closeModals() {
+    productModal.classList.remove('active');
+    formModal.classList.remove('active');
+  }
+
+  window.onclick = function(event) {
+    if (event.target == productModal) closeModals();
+    if (event.target == formModal) closeModals();
+  }
+</script>
+
+</body>
+</html>
