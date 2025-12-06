@@ -395,12 +395,11 @@
   <div class="modal-overlay" id="productModal">
     <div class="modal-box lightbox-grid">
       <div class="close-btn" onclick="closeModals()">&times;</div>
+      
       <div class="lightbox-visual">
         <img id="lb-image" src="" style="width:100%; border:3px solid var(--ink-black);">
-        <div style="margin-top:15px; text-align:center; font-weight:bold; font-size:0.8rem;">
-          Tap to compare with original photo
-        </div>
       </div>
+
       <div class="lightbox-details">
         <span style="background:black; color:white; padding:5px 10px; font-size:0.8rem;">CUSTOM RUG</span>
         <h2 style="font-size: 2.5rem; margin: 15px 0; text-transform:uppercase;">The Masterpiece</h2>
@@ -457,7 +456,7 @@
   const lbImage = document.getElementById('lb-image');
 
   function openLightbox(fileName) {
-    // Dynamic loading - simply appending .png to the argument passed
+    // Clean logic: Just loads the PNG you specified
     lbImage.src = fileName + '.png';
     productModal.classList.add('active');
   }
