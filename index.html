@@ -46,21 +46,16 @@
     transform: rotate(-2deg);
   }
 
-  /* --- THE HEAVY GRID (Restored Logic) --- */
+  /* --- THE HEAVY GRID --- */
   .gallery-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px;
-    
-    /* This creates the robust layout */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: 250px; /* Base unit height */
+    grid-auto-rows: 250px; 
     gap: 40px;
-    
-    /* Ensure dense packing so the big square doesn't break the flow */
     grid-auto-flow: dense; 
-    
     padding-bottom: 150px;
   }
 
@@ -82,10 +77,10 @@
     filter: grayscale(100%) contrast(120%);
   }
 
-  /* --- GRID CLASSES (The Secret Sauce) --- */
+  /* --- GRID CLASSES --- */
   .card-wide { grid-column: span 2; }
   .card-tall { grid-row: span 2; }
-  .card-big  { grid-column: span 2; grid-row: span 2; } /* The Featured Square */
+  .card-big  { grid-column: span 2; grid-row: span 2; } 
 
   /* TILT LOGIC */
   .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
@@ -261,32 +256,32 @@
   <div class="gallery-container">
     
     <div class="rug-card card-wide" onclick="openLightbox('corgi')">
-      <img src="floor_dog_8.jpg" alt="Corgi Rug"> 
+      <img src="floor_dog_8.png" alt="Corgi Rug"> 
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
     <div class="rug-card card-tall" onclick="openLightbox('sphynx')">
-      <img src="floor_cat_3.jpg" style="object-position: center;" alt="Wall Art">
+      <img src="floor_cat_3.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
 
     <div class="rug-card" onclick="openLightbox('yorkie')">
-       <img src="floor_dog_7.jpg" alt="Yorkie">
+       <img src="floor_dog_7.png" alt="Yorkie">
        <div class="card-tag">FLOOR</div>
     </div>
 
     <div class="rug-card card-big" onclick="openLightbox('doberman')">
-      <img src="floor_dog_1.jpg" alt="Doberman">
+      <img src="floor_dog_1.png" alt="Doberman">
       <div class="card-tag">FEATURED</div>
     </div>
     
     <div class="rug-card card-wide" onclick="openLightbox('greycat')">
-       <img src="floor_cat_5.jpg" alt="Grey Cat">
+       <img src="floor_cat_5.png" alt="Grey Cat">
        <div class="card-tag">FLOOR / SHAPED</div>
     </div>
 
     <div class="rug-card" onclick="openLightbox('persian')">
-      <img src="floor_cat_7.jpg" alt="Persian">
+      <img src="floor_cat_7.png" alt="Persian">
     </div>
 
   </div>
@@ -362,15 +357,14 @@
   const lbImage = document.getElementById('lb-image');
 
   function openLightbox(imageName) {
-    // Basic switch for demo purposes
-    // In production, these would be dynamic based on the clicked item
+    // Dynamic Image Loading (PNG)
     let src = '';
-    if(imageName === 'corgi') src = 'floor_dog_8.jpg';
-    else if(imageName === 'sphynx') src = 'floor_cat_3.jpg';
-    else if(imageName === 'doberman') src = 'floor_dog_1.jpg';
-    else if(imageName === 'yorkie') src = 'floor_dog_7.jpg';
-    else if(imageName === 'greycat') src = 'floor_cat_5.jpg';
-    else src = 'floor_cat_7.jpg';
+    if(imageName === 'corgi') src = 'floor_dog_8.png';
+    else if(imageName === 'sphynx') src = 'floor_cat_3.png';
+    else if(imageName === 'doberman') src = 'floor_dog_1.png';
+    else if(imageName === 'yorkie') src = 'floor_dog_7.png';
+    else if(imageName === 'greycat') src = 'floor_cat_5.png';
+    else src = 'floor_cat_7.png';
 
     lbImage.src = src;
     productModal.classList.add('active');
