@@ -23,7 +23,7 @@
 
   /* --- HEADER --- */
   header {
-    padding: 50px 20px;
+    padding: 60px 20px 40px;
     text-align: center;
   }
 
@@ -46,7 +46,33 @@
     transform: rotate(-2deg);
   }
 
-  /* --- THE HEAVY GRID --- */
+  /* --- SECTION DIVIDERS --- */
+  .section-divider {
+    max-width: 1400px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .divider-line {
+    height: 4px;
+    background: var(--ink-black);
+    flex-grow: 1;
+  }
+
+  .section-title {
+    background: var(--ink-black);
+    color: var(--electric-yellow);
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transform: rotate(1deg);
+  }
+
+  /* --- GRID SYSTEMS --- */
   .gallery-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -56,8 +82,10 @@
     grid-auto-rows: 250px; 
     gap: 40px;
     grid-auto-flow: dense; 
-    padding-bottom: 150px;
   }
+
+  /* Padding for the bottom of the page */
+  .bottom-pad { padding-bottom: 150px; }
 
   .rug-card {
     background: var(--paper-white);
@@ -72,7 +100,7 @@
   .rug-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* This makes the cropping work */
     transition: transform 0.5s ease;
     filter: grayscale(100%) contrast(120%);
   }
@@ -82,11 +110,11 @@
   .card-tall { grid-row: span 2; }
   .card-big  { grid-column: span 2; grid-row: span 2; } 
 
-  /* TILT LOGIC */
+  /* TILT LOGIC (Randomized look) */
   .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
   .rug-card:nth-child(even) { transform: rotate(1deg); }
-  .rug-card:nth-child(3n) { transform: rotate(-2deg); }
-  .rug-card:nth-child(5n) { transform: rotate(1.5deg); }
+  .rug-card:nth-child(3n) { transform: rotate(-1deg); }
+  .rug-card:nth-child(4n) { transform: rotate(1.5deg); }
 
   .rug-card:hover {
     transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
@@ -242,7 +270,8 @@
     .lightbox-visual { border-right: none; border-bottom: 4px solid var(--ink-black); }
     .form-container { padding: 20px; border: none; }
     h1 { font-size: 2.5rem; }
-    .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; } /* Stack on mobile */
+    .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; } 
+    .section-divider { padding: 0 20px; }
   }
 </style>
 </head>
@@ -254,17 +283,14 @@
   </header>
 
   <div class="gallery-container">
-    
     <div class="rug-card card-wide" onclick="openLightbox('corgi')">
       <img src="floor_dog_8.png" alt="Corgi Rug"> 
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-
     <div class="rug-card card-tall" onclick="openLightbox('sphynx')">
       <img src="floor_cat_3.png" style="object-position: center;" alt="Wall Art">
       <div class="card-tag">WALL / ART</div>
     </div>
-
     <div class="rug-card" onclick="openLightbox('yorkie')">
        <img src="floor_dog_7.png" alt="Yorkie">
        <div class="card-tag">FLOOR</div>
@@ -274,14 +300,83 @@
       <img src="floor_dog_1.png" alt="Doberman">
       <div class="card-tag">FEATURED</div>
     </div>
-    
     <div class="rug-card card-wide" onclick="openLightbox('greycat')">
        <img src="floor_cat_5.png" alt="Grey Cat">
        <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-
     <div class="rug-card" onclick="openLightbox('persian')">
       <img src="floor_cat_7.png" alt="Persian">
+    </div>
+  </div>
+
+
+  <div class="section-divider">
+    <div class="divider-line"></div>
+    <div class="section-title">Studio Collection</div>
+    <div class="divider-line"></div>
+  </div>
+
+
+  <div class="gallery-container bottom-pad">
+    
+    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_1')">
+      <img src="wall_dog_1.png" style="object-position: center;" alt="Labrador Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-wide" onclick="openLightbox('floor_dog_3')">
+      <img src="floor_dog_3.png" alt="Border Collie">
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_1')">
+      <img src="wall_cat_1.png" style="object-position: center;" alt="Sphynx Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_13')">
+      <img src="floor_cat_13.png" alt="Grey Fold">
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_2')">
+      <img src="wall_dog_2.png" style="object-position: center;" alt="Pointer Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_4')">
+      <img src="wall_cat_4.png" style="object-position: center;" alt="Tabby Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-wide" onclick="openLightbox('floor_dog_9')">
+      <img src="floor_dog_9.png" alt="Chihuahua">
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_3')">
+      <img src="wall_dog_3.png" style="object-position: center;" alt="Bull Terrier Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_2')">
+      <img src="floor_cat_2.png" alt="Persian">
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_cat_3')">
+      <img src="wall_cat_3.png" style="object-position: center;" alt="White Cat Art">
+      <div class="card-tag">WALL / ART</div>
+    </div>
+
+    <div class="rug-card card-wide" onclick="openLightbox('floor_cat_5')">
+      <img src="floor_cat_5.png" alt="Tabby">
+      <div class="card-tag">FLOOR / SHAPED</div>
+    </div>
+
+    <div class="rug-card card-tall" onclick="openLightbox('wall_dog_4')">
+      <img src="wall_dog_4.png" style="object-position: center;" alt="Min Pin Art">
+      <div class="card-tag">WALL / ART</div>
     </div>
 
   </div>
@@ -358,13 +453,22 @@
 
   function openLightbox(imageName) {
     // Dynamic Image Loading (PNG)
+    // Note: This logic assumes you have the files named exactly as mapped above.
+    // In a real CMS, this would be handled by a database loop.
     let src = '';
+    
+    // HERO SECTION MAPPING
     if(imageName === 'corgi') src = 'floor_dog_8.png';
     else if(imageName === 'sphynx') src = 'floor_cat_3.png';
     else if(imageName === 'doberman') src = 'floor_dog_1.png';
     else if(imageName === 'yorkie') src = 'floor_dog_7.png';
     else if(imageName === 'greycat') src = 'floor_cat_5.png';
-    else src = 'floor_cat_7.png';
+    else if(imageName === 'persian') src = 'floor_cat_7.png';
+    
+    // EXTENDED GALLERY MAPPING (Direct Filename Pass-through)
+    else {
+      src = imageName + '.png';
+    }
 
     lbImage.src = src;
     productModal.classList.add('active');
