@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tuft & Soul | Custom Pet Rugs</title>
+<title>Peluditos Rugs | Arte de Mascotas Hecho a Mano</title>
 <style>
   :root {
     --electric-yellow: #FFD700;
@@ -21,9 +21,30 @@
     overflow-x: hidden;
   }
 
+  /* --- LANGUAGE TOGGLE --- */
+  .lang-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    font-weight: bold;
+    z-index: 100;
+  }
+  .lang-btn {
+    cursor: pointer;
+    opacity: 0.5;
+    text-decoration: none;
+    color: var(--ink-black);
+  }
+  .lang-btn.active {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
   /* --- HEADER --- */
   header {
-    padding: 60px 20px 40px;
+    padding: 80px 20px 40px; /* More top padding for lang switch */
     text-align: center;
   }
 
@@ -49,7 +70,7 @@
   /* --- SECTION DIVIDERS --- */
   .section-divider {
     max-width: 1400px;
-    margin: 20px auto 0;
+    margin: 60px auto 30px;
     padding: 0 40px;
     display: flex;
     align-items: center;
@@ -70,6 +91,7 @@
     font-weight: bold;
     text-transform: uppercase;
     transform: rotate(1deg);
+    white-space: nowrap;
   }
 
   /* --- GRID SYSTEMS --- */
@@ -84,24 +106,47 @@
     grid-auto-flow: dense; 
   }
 
+  /* Process Grid - Forced 3 columns on desktop */
+  .process-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
   .bottom-pad { padding-bottom: 150px; }
 
-  .rug-card {
+  .rug-card, .process-card {
     background: var(--paper-white);
     border: 3px solid var(--ink-black);
     box-shadow: var(--shadow-hard);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    cursor: pointer;
     position: relative;
     overflow: hidden;
   }
 
+  .rug-card { cursor: pointer; }
+
+  /* Process Card Specifics */
+  .process-card {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    aspect-ratio: 1 / 1; /* Force square */
+  }
+  .process-step-num {
+    font-size: 3rem; font-weight: bold; color: var(--electric-yellow);
+    text-shadow: 2px 2px 0px var(--ink-black); margin-bottom: 10px;
+  }
+  .process-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
+
   .rug-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-    filter: grayscale(100%) contrast(120%);
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease; filter: grayscale(100%) contrast(120%);
   }
 
   /* --- GRID CLASSES --- */
@@ -110,12 +155,11 @@
   .card-big  { grid-column: span 2; grid-row: span 2; } 
 
   /* TILT LOGIC */
-  .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
-  .rug-card:nth-child(even) { transform: rotate(1deg); }
-  .rug-card:nth-child(3n) { transform: rotate(-1deg); }
-  .rug-card:nth-child(4n) { transform: rotate(1.5deg); }
+  .rug-card:nth-child(odd), .process-card:nth-child(odd) { transform: rotate(-1.5deg); }
+  .rug-card:nth-child(even), .process-card:nth-child(even) { transform: rotate(1deg); }
+  .card-big { transform: rotate(-2deg) !important; }
 
-  .rug-card:hover {
+  .rug-card:hover, .process-card:hover {
     transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
     box-shadow: var(--shadow-hover);
     z-index: 10;
@@ -127,141 +171,93 @@
   }
 
   .card-tag {
-    position: absolute;
-    bottom: 0; right: 0;
-    background: var(--ink-black);
-    color: var(--electric-yellow);
-    padding: 5px 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 2;
+    position: absolute; bottom: 0; right: 0;
+    background: var(--ink-black); color: var(--electric-yellow);
+    padding: 5px 12px; font-size: 0.8rem; font-weight: bold; z-index: 2;
   }
 
   /* --- FLOATING CTA --- */
   .fab-container {
-    position: fixed;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%); z-index: 100;
     width: 90%; max-width: 400px;
   }
 
   .cta-button {
-    background: var(--ink-black);
-    color: var(--paper-white);
-    width: 100%;
-    padding: 20px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    font-weight: bold;
+    background: var(--ink-black); color: var(--paper-white);
+    width: 100%; padding: 20px; font-size: 1.2rem;
+    text-transform: uppercase; font-weight: bold;
     border: 2px solid var(--paper-white);
     box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    cursor: pointer; display: flex;
+    justify-content: space-between; align-items: center;
     transition: transform 0.2s;
   }
 
-  .cta-button:hover {
-    transform: scale(1.05);
-    background: #222;
-  }
+  .cta-button:hover { transform: scale(1.05); background: #222; }
 
   /* --- MODALS --- */
   .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(26, 26, 26, 0.95);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-    padding: 20px;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 26, 26, 0.95); display: none;
+    justify-content: center; align-items: center; z-index: 200; padding: 20px;
   }
-  
   .modal-overlay.active { display: flex; }
 
   .modal-box {
-    background: var(--electric-yellow);
-    width: 100%;
-    max-width: 1000px;
-    border: 4px solid var(--paper-white);
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
+    background: var(--electric-yellow); width: 100%; max-width: 1000px;
+    border: 4px solid var(--paper-white); max-height: 90vh;
+    overflow-y: auto; position: relative;
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
   }
 
   .close-btn {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 2.5rem;
-    cursor: pointer;
-    z-index: 20;
-    line-height: 0.8;
+    position: absolute; top: 15px; right: 20px;
+    font-size: 2.5rem; cursor: pointer; z-index: 20; line-height: 0.8;
   }
 
   /* LIGHTBOX SPECIFIC */
-  .lightbox-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-  }
-  
+  .lightbox-grid { display: grid; grid-template-columns: 1.5fr 1fr; }
   .lightbox-visual {
-    background: white;
-    border-right: 4px solid var(--ink-black);
-    display: flex; flex-direction: column;
-    justify-content: center; padding: 20px;
+    background: white; border-right: 4px solid var(--ink-black);
+    display: flex; flex-direction: column; justify-content: center; padding: 20px;
   }
+  .lightbox-details { padding: 40px; overflow-y: auto;}
   
-  .lightbox-details { padding: 40px; }
+  /* New Details Section in Lightbox */
+  .details-block { margin-top: 20px; font-size: 0.9rem; background: rgba(255,255,255,0.5); padding: 15px; border: 2px solid var(--ink-black); }
+  .details-block h4 { margin: 0 0 10px 0; text-transform: uppercase; }
+  .details-block ul { margin: 0; padding-left: 20px; }
+  .details-block li { margin-bottom: 5px; }
 
   /* FORM SPECIFIC */
   .form-container {
-    padding: 50px;
-    background: var(--paper-white);
-    max-width: 600px;
-    margin: 0 auto;
-    border: 4px solid var(--ink-black);
+    padding: 50px; background: var(--paper-white);
+    max-width: 600px; margin: 0 auto; border: 4px solid var(--ink-black);
   }
-
   .form-group { margin-bottom: 25px; }
-  
   label {
     display: block; font-weight: bold; margin-bottom: 8px;
     text-transform: uppercase; font-size: 0.9rem;
   }
-
   input[type="text"], input[type="email"], textarea, select {
-    width: 100%; padding: 15px;
-    border: 3px solid var(--ink-black);
-    font-family: inherit; font-size: 1rem;
-    background: #f0f0f0; box-sizing: border-box;
+    width: 100%; padding: 15px; border: 3px solid var(--ink-black);
+    font-family: inherit; font-size: 1rem; background: #f0f0f0; box-sizing: border-box;
   }
-
   input:focus, textarea:focus, select:focus {
-    outline: none; background: white;
-    box-shadow: 5px 5px 0px var(--electric-yellow);
+    outline: none; background: white; box-shadow: 5px 5px 0px var(--electric-yellow);
   }
-
   .file-upload-wrapper {
-    border: 3px dashed var(--ink-black);
-    padding: 20px; text-align: center;
-    cursor: pointer; background: #f9f9f9;
+    border: 3px dashed var(--ink-black); padding: 20px;
+    text-align: center; cursor: pointer; background: #f9f9f9;
   }
-  
   .submit-btn {
     background: var(--ink-black); color: var(--electric-yellow);
-    border: none; padding: 20px; width: 100%;
-    font-size: 1.2rem; font-weight: bold;
-    cursor: pointer; text-transform: uppercase;
-    font-family: inherit; transition: all 0.2s;
+    border: none; padding: 20px; width: 100%; font-size: 1.2rem; font-weight: bold;
+    cursor: pointer; text-transform: uppercase; font-family: inherit; transition: all 0.2s;
   }
-
   .submit-btn:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 6px 6px 0px var(--electric-yellow);
+    transform: translate(-3px, -3px); box-shadow: 6px 6px 0px var(--electric-yellow);
   }
 
   @media (max-width: 768px) {
@@ -271,142 +267,126 @@
     h1 { font-size: 2.5rem; }
     .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; } 
     .section-divider { padding: 0 20px; }
+    .process-container { grid-template-columns: 1fr; } /* Stack process cards on mobile */
+    .process-card { aspect-ratio: auto; padding: 40px 20px; }
   }
 </style>
 </head>
-<body>
+<body lang="es">
+
+  <div class="lang-switch">
+    <span class="lang-btn active" onclick="setLanguage('es')">ES</span>
+    /
+    <span class="lang-btn" onclick="setLanguage('en')">EN</span>
+  </div>
 
   <header>
-    <h1>Tuft & Soul</h1>
-    <div class="subtitle">Handmade Pet Art</div>
+    <h1>Peluditos Rugs</h1>
+    <div class="subtitle" data-es="Arte de Mascotas Hecho a Mano" data-en="Handmade Pet Art">Arte de Mascotas Hecho a Mano</div>
   </header>
 
   <div class="gallery-container">
-    
     <div class="rug-card card-wide" onclick="openLightbox('hero_floor_1')">
-      <img src="hero_floor_1.png" alt="Wide Floor Rug"> 
-      <div class="card-tag">FLOOR / SHAPED</div>
+      <img src="hero_floor_1.png" alt="Wide Floor Rug"> <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-
     <div class="rug-card card-tall" onclick="openLightbox('hero_wall_1')">
-      <img src="hero_wall_1.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
+      <img src="hero_wall_1.png" style="object-position: center;" alt="Wall Art"> <div class="card-tag">WALL / ART</div>
     </div>
-
     <div class="rug-card" onclick="openLightbox('hero_floor_2')">
-       <img src="hero_floor_2.png" alt="Standard Rug">
-       <div class="card-tag">FLOOR</div>
+       <img src="hero_floor_2.png" alt="Standard Rug"> <div class="card-tag">FLOOR</div>
     </div>
-
     <div class="rug-card card-big" onclick="openLightbox('hero_feature')">
-      <img src="hero_feature.png" alt="Featured Rug">
-      <div class="card-tag">FEATURED</div>
+      <img src="hero_feature.png" alt="Featured Rug"> <div class="card-tag">FEATURED</div>
     </div>
-    
     <div class="rug-card card-wide" onclick="openLightbox('hero_floor_3')">
-       <img src="hero_floor_3.png" alt="Wide Floor Rug">
-       <div class="card-tag">FLOOR / SHAPED</div>
+       <img src="hero_floor_3.png" alt="Wide Floor Rug"> <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-
     <div class="rug-card" onclick="openLightbox('hero_floor_4')">
       <img src="hero_floor_4.png" alt="Extra Rug">
     </div>
-
   </div>
-
 
   <div class="section-divider">
     <div class="divider-line"></div>
-    <div class="section-title">Studio Collection</div>
+    <div class="section-title" data-es="Galería del Estudio" data-en="Studio Collection">Galería del Estudio</div>
     <div class="divider-line"></div>
   </div>
 
-
-  <div class="gallery-container bottom-pad">
-    
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_1')">
-      <img src="gal_wall_1.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_1')">
-      <img src="gal_floor_1.png" alt="Floor Rug">
-      <div class="card-tag">FLOOR / SHAPED</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_2')">
-      <img src="gal_wall_2.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_2')">
-      <img src="gal_floor_2.png" alt="Floor Rug">
-      <div class="card-tag">FLOOR / SHAPED</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_3')">
-      <img src="gal_wall_3.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_4')">
-      <img src="gal_wall_4.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_3')">
-      <img src="gal_floor_3.png" alt="Floor Rug">
-      <div class="card-tag">FLOOR / SHAPED</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_5')">
-      <img src="gal_wall_5.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_4')">
-      <img src="gal_floor_4.png" alt="Floor Rug">
-      <div class="card-tag">FLOOR / SHAPED</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_6')">
-      <img src="gal_wall_6.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
-    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_5')">
-      <img src="gal_floor_5.png" alt="Floor Rug">
-      <div class="card-tag">FLOOR / SHAPED</div>
-    </div>
-
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_7')">
-      <img src="gal_wall_7.png" style="object-position: center;" alt="Wall Art">
-      <div class="card-tag">WALL / ART</div>
-    </div>
-
+  <div class="gallery-container">
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_1')"><img src="gal_wall_1.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_1')"><img src="gal_floor_1.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_2')"><img src="gal_wall_2.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_2')"><img src="gal_floor_2.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_3')"><img src="gal_wall_3.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_4')"><img src="gal_wall_4.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_3')"><img src="gal_floor_3.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_5')"><img src="gal_wall_5.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_4')"><img src="gal_floor_4.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_6')"><img src="gal_wall_6.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_5')"><img src="gal_floor_5.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_7')"><img src="gal_wall_7.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
   </div>
+
+   <div class="section-divider">
+    <div class="divider-line"></div>
+    <div class="section-title" data-es="Cómo Funciona" data-en="How It Works">Cómo Funciona</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="process-container bottom-pad">
+    <div class="process-card">
+      <div class="process-step-num">1</div>
+      <div class="process-title" data-es="Envía tu Foto" data-en="Send Your Photo">Envía tu Foto</div>
+      <div data-es="Llena el formulario y sube la imagen de tu peludito." data-en="Fill the form and upload your pet's picture.">Llena el formulario y sube la imagen de tu peludito.</div>
+    </div>
+    <div class="process-card" style="transform: rotate(1deg);">
+      <div class="process-step-num">2</div>
+      <div class="process-title" data-es="Propuesta Gratuita" data-en="Free Proposal">Propuesta Gratuita</div>
+      <div data-es="Recibe un diseño digital en 24 horas. ¡Sin costo!" data-en="Receive a digital design within 24 hours. Free!">Recibe un diseño digital en 24 horas. ¡Sin costo!</div>
+    </div>
+    <div class="process-card">
+      <div class="process-step-num">3</div>
+      <div class="process-title" data-es="Aprobación y Creación" data-en="Approve & Create">Aprobación y Creación</div>
+      <div data-es="Paga un abono para iniciar. Recíbelo en 1-2 semanas." data-en="Pay a deposit to start. Receive it in 1-2 weeks.">Paga un abono para iniciar. Recíbelo en 1-2 semanas.</div>
+    </div>
+  </div>
+
 
   <div class="fab-container">
     <button class="cta-button" onclick="openFormModal()">
-      Get Free Proposal <span>&rarr;</span>
+      <span data-es="Obtener Propuesta Gratis" data-en="Get Free Proposal">Obtener Propuesta Gratis</span> <span>&rarr;</span>
     </button>
   </div>
 
   <div class="modal-overlay" id="productModal">
     <div class="modal-box lightbox-grid">
       <div class="close-btn" onclick="closeModals()">&times;</div>
-      
       <div class="lightbox-visual">
         <img id="lb-image" src="" style="width:100%; border:3px solid var(--ink-black);">
       </div>
-
       <div class="lightbox-details">
-        <span style="background:black; color:white; padding:5px 10px; font-size:0.8rem;">CUSTOM RUG</span>
-        <h2 style="font-size: 2.5rem; margin: 15px 0; text-transform:uppercase;">The Masterpiece</h2>
-        <p style="line-height:1.6;">Hand-tufted with premium acrylic yarn. Features a non-slip backing and carved details for a 3D effect.</p>
+        <span style="background:black; color:white; padding:5px 10px; font-size:0.8rem;" data-es="ALFOMBRA PERSONALIZADA" data-en="CUSTOM RUG">ALFOMBRA PERSONALIZADA</span>
+        <h2 style="font-size: 2.5rem; margin: 15px 0; text-transform:uppercase;" data-es="La Obra Maestra" data-en="The Masterpiece">La Obra Maestra</h2>
+        
+        <p style="line-height:1.6;" data-es="Tufting a mano con lana acrílica premium. Base antideslizante y detalles tallados para efecto 3D." data-en="Hand-tufted with premium acrylic yarn. Features a non-slip backing and carved details for a 3D effect.">
+          Tufting a mano con lana acrílica premium. Base antideslizante y detalles tallados para efecto 3D.
+        </p>
+
+        <div class="details-block">
+          <h4 data-es="Detalles y Cuidado" data-en="Details & Care">Detalles y Cuidado</h4>
+          <ul>
+            <li data-es="Envío GRATIS en Colombia." data-en="FREE shipping in Colombia.">Envío GRATIS en Colombia.</li>
+            <li data-es="Se requiere abono inicial para comenzar." data-en="Deposit required to start working.">Se requiere abono inicial para comenzar.</li>
+            <li data-es="Garantía de 1 año." data-en="1-year warranty included.">Garantía de 1 año.</li>
+            <li data-es="Estimado Cabeza (50x50cm): Desde $400.000 COP" data-en="Est. Head Shape (50x50cm): From $400k COP">Estimado Cabeza (50x50cm): Desde $400.000 COP</li>
+            <li data-es="Estimado Pared (70x110cm): Desde $1.000.000 COP" data-en="Est. Wall Art (70x110cm): From $1M COP">Estimado Pared (70x110cm): Desde $1.000.000 COP</li>
+            <li style="margin-top:10px; font-weight:bold;" data-es="CUIDADO: Aspiradora o pañitos húmedos. NO lavadora. NO sol directo." data-en="CARE: Vacuum or wet wipes. NO washing machine. NO direct sunlight.">CUIDADO: Aspiradora o pañitos húmedos. NO lavadora. NO sol directo.</li>
+          </ul>
+        </div>
+
         <div style="margin-top:30px; border-top:2px solid black; padding-top:20px;">
           <button class="cta-button" onclick="closeModals(); openFormModal();" style="font-size:1rem; padding:15px;">
-            I Want One Like This
+            <span data-es="Quiero Una Así" data-en="I Want One Like This">Quiero Una Así</span>
           </button>
         </div>
       </div>
@@ -417,34 +397,34 @@
     <div class="modal-box" style="background: var(--electric-yellow); padding: 40px 0;">
       <div class="close-btn" onclick="closeModals()">&times;</div>
       <div class="form-container">
-        <h2 style="text-align:center; font-size:2rem; margin-top:0;">START YOUR DESIGN</h2>
-        <p style="text-align:center; margin-bottom:30px;">Upload your pet's photo. We'll send you a digital mockup within 24 hours. <strong>It's Free.</strong></p>
+        <h2 style="text-align:center; font-size:2rem; margin-top:0;" data-es="EMPIEZA TU DISEÑO" data-en="START YOUR DESIGN">EMPIEZA TU DISEÑO</h2>
+        <p style="text-align:center; margin-bottom:30px;" data-es="Sube la foto de tu mascota. Te enviaremos una propuesta digital en 24 horas. <strong>Es Gratis.</strong>" data-en="Upload your pet's photo. We'll send you a digital mockup within 24 hours. <strong>It's Free.</strong>">Sube la foto de tu mascota. Te enviaremos una propuesta digital en 24 horas. <strong>Es Gratis.</strong></p>
 
         <form action="https://formspree.io/f/meoyqawk" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" name="name" required placeholder="John Doe">
+            <label data-es="Tu Nombre" data-en="Your Name">Tu Nombre</label>
+            <input type="text" name="name" required placeholder="Juan Pérez">
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" name="email" required placeholder="john@example.com">
+            <label data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+            <input type="email" name="email" required placeholder="juan@ejemplo.com">
           </div>
           <div class="form-group">
-            <label>Rug Style</label>
+            <label data-es="Estilo de Alfombra" data-en="Rug Style">Estilo de Alfombra</label>
             <select name="style">
-              <option value="Floor_Rug">Floor Rug (Head Shape)</option>
-              <option value="Wall_Art">Wall Art (Portrait Rectangular)</option>
-              <option value="Unsure">I'm not sure yet</option>
+              <option value="Floor_Rug_ES" data-es="Alfombra de Piso (Forma Cabeza)" data-en="Floor Rug (Head Shape)">Alfombra de Piso (Forma Cabeza)</option>
+              <option value="Wall_Art_ES" data-es="Arte de Pared (Retrato Rectangular)" data-en="Wall Art (Portrait Rectangular)">Arte de Pared (Retrato Rectangular)</option>
+              <option value="Unsure_ES" data-es="No estoy seguro aún" data-en="I'm not sure yet">No estoy seguro aún</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Upload Pet Photo</label>
+            <label data-es="Sube Foto de Mascota" data-en="Upload Pet Photo">Sube Foto de Mascota</label>
             <div class="file-upload-wrapper">
               <input type="file" name="attachment" accept="image/png, image/jpeg" required>
             </div>
-            <small style="display:block; margin-top:5px; text-align:center;">Best lighting works best!</small>
+            <small style="display:block; margin-top:5px; text-align:center;" data-es="¡Mejor iluminación = mejor resultado!" data-en="Best lighting works best!">¡Mejor iluminación = mejor resultado!</small>
           </div>
-          <button type="submit" class="submit-btn">Send Request</button>
+          <button type="submit" class="submit-btn" data-es="Enviar Solicitud" data-en="Send Request">Enviar Solicitud</button>
         </form>
       </div>
     </div>
@@ -455,8 +435,31 @@
   const formModal = document.getElementById('formModal');
   const lbImage = document.getElementById('lb-image');
 
+  // --- LANGUAGE SWITCHER LOGIC ---
+  let currentLang = 'es'; // Default language
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.body.lang = lang;
+
+    // Update Toggle Buttons styles
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+    });
+
+    // Update Standard Text Elements (using data-attributes)
+    document.querySelectorAll('[data-es]').forEach(el => {
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    });
+
+    // Update Form Select Options specifically
+    document.querySelectorAll('select option').forEach(opt => {
+        opt.innerText = opt.getAttribute(`data-${lang}`);
+    });
+  }
+
+  // --- MODAL LOGIC ---
   function openLightbox(fileName) {
-    // Clean logic: Just loads the PNG you specified
     lbImage.src = fileName + '.png';
     productModal.classList.add('active');
   }
@@ -475,6 +478,9 @@
     if (event.target == productModal) closeModals();
     if (event.target == formModal) closeModals();
   }
+
+  //Initialize language on load to ensure everything syncs up
+  setLanguage('es');
 </script>
 
 </body>
