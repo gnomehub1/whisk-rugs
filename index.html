@@ -94,13 +94,6 @@
     width: 100%; height: 100%; object-fit: cover;
     transition: transform 0.5s ease; filter: grayscale(100%) contrast(120%);
   }
-  .rug-card:hover {
-    transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
-    box-shadow: var(--shadow-hover); z-index: 10;
-  }
-  .rug-card:hover img {
-    filter: grayscale(0%) contrast(100%); transform: scale(1.05);
-  }
 
   /* --- PROCESS CARDS (HIGH VOLTAGE STYLE) --- */
   .process-container {
@@ -116,34 +109,27 @@
     position: relative;
     box-shadow: var(--shadow-hard);
     transition: transform 0.3s;
-    min-height: 300px; /* Force Big Size */
+    min-height: 300px; /* Big Chunky Size */
   }
 
   /* COLOR BLOCKING LOGIC */
-  
-  /* Steps 1 & 3: Black Background */
   .process-card:nth-child(odd) {
     background-color: var(--ink-black);
     color: var(--paper-white);
     transform: rotate(-1deg);
   }
-  
-  /* Step 2: White Background */
   .process-card:nth-child(even) {
     background-color: var(--paper-white);
     color: var(--ink-black);
     transform: rotate(1.5deg);
-    margin-top: 20px; /* Slight offset for rhythm */
+    margin-top: 20px;
   }
 
   .process-step-num {
     font-size: 5rem; line-height: 1; font-weight: 800;
     margin-bottom: 20px;
   }
-
-  /* Yellow Number for Black Cards */
   .process-card:nth-child(odd) .process-step-num { color: var(--electric-yellow); }
-  /* Black Number for White Cards */
   .process-card:nth-child(even) .process-step-num { color: var(--ink-black); }
   
   .process-title { 
@@ -153,21 +139,10 @@
   
   .process-desc { font-size: 1.1rem; line-height: 1.4; }
 
-  /* Hover Effect for Process */
-  .process-card:hover {
-    transform: scale(1.03) rotate(0deg);
-    z-index: 10;
-    box-shadow: var(--shadow-hover);
-  }
-
   /* --- GRID CLASSES --- */
   .card-wide { grid-column: span 2; }
   .card-tall { grid-row: span 2; }
   .card-big  { grid-column: span 2; grid-row: span 2; } 
-
-  /* TILT LOGIC (Rugs) */
-  .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
-  .rug-card:nth-child(even) { transform: rotate(1deg); }
 
   .card-tag {
     position: absolute; bottom: 0; right: 0;
@@ -253,6 +228,31 @@
   }
   .submit-btn:hover {
     transform: translate(-3px, -3px); box-shadow: 6px 6px 0px var(--electric-yellow);
+  }
+
+  /* === TILT & HOVER LOGIC (FIXED ORDER) === */
+  
+  /* 1. Define Base Rotation first */
+  .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
+  .rug-card:nth-child(even) { transform: rotate(1deg); }
+  
+  /* 2. Define Hover AFTER base rotation to ensure it wins */
+  .rug-card:hover {
+    transform: rotate(0deg) scale(1.03) translate(-5px, -5px) !important;
+    box-shadow: var(--shadow-hover);
+    z-index: 10;
+  }
+  
+  .rug-card:hover img {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.05);
+  }
+
+  /* Process Cards Hover */
+  .process-card:hover {
+    transform: scale(1.03) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: var(--shadow-hover);
   }
 
   @media (max-width: 768px) {
