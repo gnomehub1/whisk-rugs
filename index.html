@@ -9,8 +9,8 @@
     --electric-yellow: #FFD700;
     --ink-black: #111;
     --paper-white: #fff;
-    --shadow-hard: 6px 6px 0px var(--ink-black);
-    --shadow-hover: 12px 12px 0px var(--ink-black);
+    --shadow-hard: 8px 8px 0px var(--ink-black);
+    --shadow-hover: 14px 14px 0px var(--ink-black);
   }
 
   body {
@@ -24,27 +24,19 @@
   /* --- LANGUAGE TOGGLE --- */
   .lang-switch {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    font-weight: bold;
-    z-index: 100;
+    top: 20px; right: 20px;
+    display: flex; gap: 10px;
+    font-weight: bold; z-index: 100;
   }
   .lang-btn {
-    cursor: pointer;
-    opacity: 0.5;
-    text-decoration: none;
-    color: var(--ink-black);
+    cursor: pointer; opacity: 0.5;
+    text-decoration: none; color: var(--ink-black);
   }
-  .lang-btn.active {
-    opacity: 1;
-    text-decoration: underline;
-  }
+  .lang-btn.active { opacity: 1; text-decoration: underline; }
 
   /* --- HEADER --- */
   header {
-    padding: 80px 20px 40px; /* More top padding for lang switch */
+    padding: 80px 20px 40px;
     text-align: center;
   }
 
@@ -76,77 +68,96 @@
     align-items: center;
     gap: 20px;
   }
-
-  .divider-line {
-    height: 4px;
-    background: var(--ink-black);
-    flex-grow: 1;
-  }
-
+  .divider-line { height: 4px; background: var(--ink-black); flex-grow: 1; }
   .section-title {
-    background: var(--ink-black);
-    color: var(--electric-yellow);
-    padding: 10px 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transform: rotate(1deg);
-    white-space: nowrap;
+    background: var(--ink-black); color: var(--electric-yellow);
+    padding: 10px 20px; font-size: 1.5rem; font-weight: bold;
+    text-transform: uppercase; transform: rotate(1deg); white-space: nowrap;
   }
 
   /* --- GRID SYSTEMS --- */
   .gallery-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: 250px; 
-    gap: 40px;
-    grid-auto-flow: dense; 
+    max-width: 1400px; margin: 0 auto; padding: 40px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: 250px; gap: 40px; grid-auto-flow: dense; 
   }
 
-  /* Process Grid - Forced 3 columns on desktop */
-  .process-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px;
-  }
-  
-  .bottom-pad { padding-bottom: 150px; }
-
-  .rug-card, .process-card {
+  /* --- RUG CARDS --- */
+  .rug-card {
     background: var(--paper-white);
     border: 3px solid var(--ink-black);
     box-shadow: var(--shadow-hard);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
+    cursor: pointer; position: relative; overflow: hidden;
   }
-
-  .rug-card { cursor: pointer; }
-
-  /* Process Card Specifics */
-  .process-card {
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    aspect-ratio: 1 / 1; /* Force square */
-  }
-  .process-step-num {
-    font-size: 3rem; font-weight: bold; color: var(--electric-yellow);
-    text-shadow: 2px 2px 0px var(--ink-black); margin-bottom: 10px;
-  }
-  .process-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
-
   .rug-card img {
     width: 100%; height: 100%; object-fit: cover;
     transition: transform 0.5s ease; filter: grayscale(100%) contrast(120%);
+  }
+  .rug-card:hover {
+    transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
+    box-shadow: var(--shadow-hover); z-index: 10;
+  }
+  .rug-card:hover img {
+    filter: grayscale(0%) contrast(100%); transform: scale(1.05);
+  }
+
+  /* --- PROCESS CARDS (HIGH VOLTAGE STYLE) --- */
+  .process-container {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; max-width: 1400px; margin: 0 auto; padding: 40px;
+  }
+  
+  .process-card {
+    border: 3px solid var(--ink-black);
+    padding: 40px 30px;
+    display: flex; flex-direction: column;
+    justify-content: flex-start; text-align: left;
+    position: relative;
+    box-shadow: var(--shadow-hard);
+    transition: transform 0.3s;
+    min-height: 300px; /* Force Big Size */
+  }
+
+  /* COLOR BLOCKING LOGIC */
+  
+  /* Steps 1 & 3: Black Background */
+  .process-card:nth-child(odd) {
+    background-color: var(--ink-black);
+    color: var(--paper-white);
+    transform: rotate(-1deg);
+  }
+  
+  /* Step 2: White Background */
+  .process-card:nth-child(even) {
+    background-color: var(--paper-white);
+    color: var(--ink-black);
+    transform: rotate(1.5deg);
+    margin-top: 20px; /* Slight offset for rhythm */
+  }
+
+  .process-step-num {
+    font-size: 5rem; line-height: 1; font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  /* Yellow Number for Black Cards */
+  .process-card:nth-child(odd) .process-step-num { color: var(--electric-yellow); }
+  /* Black Number for White Cards */
+  .process-card:nth-child(even) .process-step-num { color: var(--ink-black); }
+  
+  .process-title { 
+    font-weight: bold; font-size: 1.5rem; margin-bottom: 15px; 
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  
+  .process-desc { font-size: 1.1rem; line-height: 1.4; }
+
+  /* Hover Effect for Process */
+  .process-card:hover {
+    transform: scale(1.03) rotate(0deg);
+    z-index: 10;
+    box-shadow: var(--shadow-hover);
   }
 
   /* --- GRID CLASSES --- */
@@ -154,21 +165,9 @@
   .card-tall { grid-row: span 2; }
   .card-big  { grid-column: span 2; grid-row: span 2; } 
 
-  /* TILT LOGIC */
-  .rug-card:nth-child(odd), .process-card:nth-child(odd) { transform: rotate(-1.5deg); }
-  .rug-card:nth-child(even), .process-card:nth-child(even) { transform: rotate(1deg); }
-  .card-big { transform: rotate(-2deg) !important; }
-
-  .rug-card:hover, .process-card:hover {
-    transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
-    box-shadow: var(--shadow-hover);
-    z-index: 10;
-  }
-  
-  .rug-card:hover img {
-    filter: grayscale(0%) contrast(100%);
-    transform: scale(1.05);
-  }
+  /* TILT LOGIC (Rugs) */
+  .rug-card:nth-child(odd) { transform: rotate(-1.5deg); }
+  .rug-card:nth-child(even) { transform: rotate(1deg); }
 
   .card-tag {
     position: absolute; bottom: 0; right: 0;
@@ -176,13 +175,14 @@
     padding: 5px 12px; font-size: 0.8rem; font-weight: bold; z-index: 2;
   }
 
+  .bottom-pad { padding-bottom: 150px; }
+
   /* --- FLOATING CTA --- */
   .fab-container {
     position: fixed; bottom: 30px; left: 50%;
     transform: translateX(-50%); z-index: 100;
     width: 90%; max-width: 400px;
   }
-
   .cta-button {
     background: var(--ink-black); color: var(--paper-white);
     width: 100%; padding: 20px; font-size: 1.2rem;
@@ -193,7 +193,6 @@
     justify-content: space-between; align-items: center;
     transition: transform 0.2s;
   }
-
   .cta-button:hover { transform: scale(1.05); background: #222; }
 
   /* --- MODALS --- */
@@ -203,17 +202,15 @@
     justify-content: center; align-items: center; z-index: 200; padding: 20px;
   }
   .modal-overlay.active { display: flex; }
-
   .modal-box {
     background: var(--electric-yellow); width: 100%; max-width: 1000px;
     border: 4px solid var(--paper-white); max-height: 90vh;
     overflow-y: auto; position: relative;
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
   }
-
   .close-btn {
     position: absolute; top: 15px; right: 20px;
-    font-size: 2.5rem; cursor: pointer; z-index: 20; line-height: 0.8;
+    font-size: 2.5rem; cursor: pointer; z-index: 20; line-height: 0.8; color: var(--ink-black);
   }
 
   /* LIGHTBOX SPECIFIC */
@@ -223,8 +220,6 @@
     display: flex; flex-direction: column; justify-content: center; padding: 20px;
   }
   .lightbox-details { padding: 40px; overflow-y: auto;}
-  
-  /* New Details Section in Lightbox */
   .details-block { margin-top: 20px; font-size: 0.9rem; background: rgba(255,255,255,0.5); padding: 15px; border: 2px solid var(--ink-black); }
   .details-block h4 { margin: 0 0 10px 0; text-transform: uppercase; }
   .details-block ul { margin: 0; padding-left: 20px; }
@@ -267,11 +262,11 @@
     h1 { font-size: 2.5rem; }
     .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; } 
     .section-divider { padding: 0 20px; }
-    .process-container { grid-template-columns: 1fr; } /* Stack process cards on mobile */
-    .process-card { aspect-ratio: auto; padding: 40px 20px; }
+    .process-container { grid-template-columns: 1fr; gap: 40px; } 
   }
 </style>
 </head>
+
 <body lang="es">
 
   <div class="lang-switch">
@@ -337,17 +332,17 @@
     <div class="process-card">
       <div class="process-step-num">1</div>
       <div class="process-title" data-es="Envía tu Foto" data-en="Send Your Photo">Envía tu Foto</div>
-      <div data-es="Llena el formulario y sube la imagen de tu peludito." data-en="Fill the form and upload your pet's picture.">Llena el formulario y sube la imagen de tu peludito.</div>
+      <div class="process-desc" data-es="Llena el formulario y sube la imagen de tu peludito." data-en="Fill the form and upload your pet's picture.">Llena el formulario y sube la imagen de tu peludito.</div>
     </div>
-    <div class="process-card" style="transform: rotate(1deg);">
+    <div class="process-card">
       <div class="process-step-num">2</div>
       <div class="process-title" data-es="Propuesta Gratuita" data-en="Free Proposal">Propuesta Gratuita</div>
-      <div data-es="Recibe un diseño digital en 24 horas. ¡Sin costo!" data-en="Receive a digital design within 24 hours. Free!">Recibe un diseño digital en 24 horas. ¡Sin costo!</div>
+      <div class="process-desc" data-es="Recibe un diseño digital en 24 horas. ¡Sin costo!" data-en="Receive a digital design within 24 hours. Free!">Recibe un diseño digital en 24 horas. ¡Sin costo!</div>
     </div>
     <div class="process-card">
       <div class="process-step-num">3</div>
       <div class="process-title" data-es="Aprobación y Creación" data-en="Approve & Create">Aprobación y Creación</div>
-      <div data-es="Paga un abono para iniciar. Recíbelo en 1-2 semanas." data-en="Pay a deposit to start. Receive it in 1-2 weeks.">Paga un abono para iniciar. Recíbelo en 1-2 semanas.</div>
+      <div class="process-desc" data-es="Paga un abono para iniciar. Recíbelo en 1-2 semanas." data-en="Pay a deposit to start. Receive it in 1-2 weeks.">Paga un abono para iniciar. Recíbelo en 1-2 semanas.</div>
     </div>
   </div>
 
@@ -435,30 +430,24 @@
   const formModal = document.getElementById('formModal');
   const lbImage = document.getElementById('lb-image');
 
-  // --- LANGUAGE SWITCHER LOGIC ---
-  let currentLang = 'es'; // Default language
+  // --- LANGUAGE SWITCHER ---
+  let currentLang = 'es'; 
 
   function setLanguage(lang) {
     currentLang = lang;
     document.body.lang = lang;
-
-    // Update Toggle Buttons styles
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
     });
-
-    // Update Standard Text Elements (using data-attributes)
     document.querySelectorAll('[data-es]').forEach(el => {
       el.innerHTML = el.getAttribute(`data-${lang}`);
     });
-
-    // Update Form Select Options specifically
     document.querySelectorAll('select option').forEach(opt => {
         opt.innerText = opt.getAttribute(`data-${lang}`);
     });
   }
 
-  // --- MODAL LOGIC ---
+  // --- MODALS ---
   function openLightbox(fileName) {
     lbImage.src = fileName + '.png';
     productModal.classList.add('active');
@@ -479,7 +468,6 @@
     if (event.target == formModal) closeModals();
   }
 
-  //Initialize language on load to ensure everything syncs up
   setLanguage('es');
 </script>
 
